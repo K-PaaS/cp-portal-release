@@ -1,62 +1,62 @@
-# PaaS-TA 컨테이너 플랫폼 이미지 빌드
+# K-PaaS 컨테이너 플랫폼 이미지 빌드
 
 <table>
   <tr>
     <td colspan=2 align=center>플랫폼</td>
-    <td colspan=2 align=center><a href="https://github.com/PaaS-TA/paasta-deployment">어플리케이션 플랫폼</a></td>
-    <td colspan=2 align=center><a href="https://github.com/PaaS-TA/paas-ta-container-platform">컨테이너 플랫폼</a></td>
+    <td colspan=2 align=center><a href="https://github.com/K-PaaS/ap-deployment">어플리케이션 플랫폼</a></td>
+    <td colspan=2 align=center><a href="https://github.com/K-PaaS/cp-deployment">컨테이너 플랫폼</a></td>
   </tr>
   <tr>
     <td colspan=2 rowspan=2 align=center>포털</td>
-    <td colspan=2 align=center><a href="https://github.com/PaaS-TA/portal-deployment">AP 포털</a></td>
-    <td colspan=2 align=center><a href="https://github.com/PaaS-TA/container-platform-portal-release">🚩 CP 포털</a></td>
+    <td colspan=2 align=center><a href="https://github.com/K-PaaS/portal-deployment">AP 포털</a></td>
+    <td colspan=2 align=center><a href="https://github.com/K-PaaS/cp-portal-release">🚩 CP 포털</a></td>
   </tr>
   <tr align=center>
-    <td colspan=4><a href="https://github.com/PaaS-TA/PaaS-TA-Monitoring">모니터링 대시보드</a></td>
+    <td colspan=4><a href="https://github.com/K-PaaS/K-PaaS-Monitoring">모니터링 대시보드</a></td>
   </tr>
   <tr align=center>
-    <td rowspan=2 colspan=2><a href="https://github.com/PaaS-TA/monitoring-deployment">모니터링</a></td>
-    <td><a href="https://github.com/PaaS-TA/PaaS-TA-Monitoring-Release">Monitoring</a></td>
-    <td><a href="https://github.com/PaaS-TA/paas-ta-monitoring-logsearch-release">Logsearch</a></td>
-    <td><a href="https://github.com/PaaS-TA/paas-ta-monitoring-influxdb-release">InfluxDB</a></td>
-    <td><a href="https://github.com/PaaS-TA/paas-ta-monitoring-redis-release">Redis</a></td>
+    <td rowspan=2 colspan=2><a href="https://github.com/K-PaaS/monitoring-deployment">모니터링</a></td>
+    <td><a href="https://github.com/K-PaaS/PaaS-TA-Monitoring-Release">Monitoring</a></td>
+    <td><a href="https://github.com/K-PaaS/paas-ta-monitoring-logsearch-release">Logsearch</a></td>
+    <td><a href="https://github.com/K-PaaS/paas-ta-monitoring-influxdb-release">InfluxDB</a></td>
+    <td><a href="https://github.com/K-PaaS/paas-ta-monitoring-redis-release">Redis</a></td>
   </tr>
   <tr align=center>
-    <td><a href="https://github.com/PaaS-TA/PAAS-TA-PINPOINT-MONITORING-RELEASE">Pinpoint</td>
-    <td><a href="https://github.com/PaaS-TA/PAAS-TA-PINPOINT-MONITORING-BUILDPACK">Pinpoint Buildpack</td>
+    <td><a href="https://github.com/K-PaaS/PAAS-TA-PINPOINT-MONITORING-RELEASE">Pinpoint</td>
+    <td><a href="https://github.com/K-PaaS/PAAS-TA-PINPOINT-MONITORING-BUILDPACK">Pinpoint Buildpack</td>
     <td></td>
     <td></td>
   </tr>
   </tr>
   <tr align=center>
-    <td rowspan=4 colspan=2><a href="https://github.com/PaaS-TA/service-deployment">AP 서비스</a></td>
-    <td><a href="https://github.com/PaaS-TA/PAAS-TA-CUBRID-RELEASE">Cubrid</a></td>
-    <td><a href="https://github.com/PaaS-TA/PAAS-TA-API-GATEWAY-SERVICE-RELEASE">Gateway</a></td>
-    <td><a href="https://github.com/PaaS-TA/PAAS-TA-GLUSTERFS-RELEASE">GlusterFS</a></td>
-    <td><a href="https://github.com/PaaS-TA/PAAS-TA-APP-LIFECYCLE-SERVICE-RELEASE">Lifecycle</a></td>
+    <td rowspan=4 colspan=2><a href="https://github.com/K-PaaS/service-deployment">AP 서비스</a></td>
+    <td><a href="https://github.com/K-PaaS/ap-cubrid-release">Cubrid</a></td>
+    <td><a href="https://github.com/K-PaaS/ap-api-gateway-release">Gateway</a></td>
+    <td><a href="https://github.com/K-PaaS/ap-glusterfs-release">GlusterFS</a></td>
+    <td><a href="https://github.com/K-PaaS/ap-app-lifecycle-release">Lifecycle</a></td>
   </tr>
   <tr align=center>
-    <td><a href="https://github.com/PaaS-TA/PAAS-TA-LOGGING-SERVICE-RELEASE">Logging</a></td>
-    <td><a href="https://github.com/PaaS-TA/PAAS-TA-MONGODB-SHARD-RELEASE">MongoDB</a></td>
-    <td><a href="https://github.com/PaaS-TA/PAAS-TA-MYSQL-RELEASE">MySQL</a></td>
-    <td><a href="https://github.com/PaaS-TA/PAAS-TA-PINPOINT-RELEASE">Pinpoint APM</a></td>
+    <td><a href="https://github.com/K-PaaS/ap-logging-release">Logging</a></td>
+    <td><a href="https://github.com/K-PaaS/ap-mongodb-release">MongoDB</a></td>
+    <td><a href="https://github.com/K-PaaS/ap-mysql-release">MySQL</a></td>
+    <td><a href="https://github.com/K-PaaS/ap-pinpoint-release">Pinpoint APM</a></td>
   </tr>
   <tr align=center>
-    <td><a href="https://github.com/PaaS-TA/PAAS-TA-DELIVERY-PIPELINE-RELEASE">Pipeline</a></td>
-    <td align=center><a href="https://github.com/PaaS-TA/rabbitmq-release">RabbitMQ</a></td>
-    <td><a href="https://github.com/PaaS-TA/PAAS-TA-ON-DEMAND-REDIS-RELEASE">Redis</a></td>
-    <td><a href="https://github.com/PaaS-TA/PAAS-TA-SOURCE-CONTROL-RELEASE">Source Control</a></td>
+    <td><a href="https://github.com/K-PaaS/ap-delivery-pipeline-release">Pipeline</a></td>
+    <td align=center><a href="https://github.com/K-PaaS/rabbitmq-release">RabbitMQ</a></td>
+    <td><a href="https://github.com/K-PaaS/ap-on-demand-redis-release">Redis</a></td>
+    <td><a href="https://github.com/K-PaaS/ap-source-control-release">Source Control</a></td>
   </tr>
   <tr align=center>
-    <td><a href="https://github.com/PaaS-TA/PAAS-TA-WEB-IDE-RELEASE-NEW">WEB-IDE</a></td>
+    <td><a href="https://github.com/K-PaaS/ap-web-ide-release">WEB-IDE</a></td>
     <td></td>
     <td></td>
     <td></td>
   </tr>
   <tr align=center>
-    <td rowspan=1 colspan=2><a href="https://github.com/PaaS-TA/paas-ta-container-platform-deployment">CP 서비스</a></td>
-    <td><a href="https://github.com/PaaS-TA/container-platform-pipeline-release">Pipeline</a></td>
-    <td><a href="https://github.com/PaaS-TA/container-platform-source-control-release">Source Control</a></td>
+    <td rowspan=1 colspan=2><a href="https://github.com/K-PaaS/cp-deployment">CP 서비스</a></td>
+    <td><a href="https://github.com/K-PaaS/container-platform-pipeline-release">Pipeline</a></td>
+    <td><a href="https://github.com/K-PaaS/container-platform-source-control-release">Source Control</a></td>
     <td></td>
     <td></td>
   </tr>
@@ -73,7 +73,7 @@
 <br>
 
 ### 컨테이너 플랫폼 빌드 방법
-- PaaS-TA 컨테이너 플랫폼 프로젝트의 jar 파일 생성을 위해 빌드를 진행한다.
+- K-PaaS 컨테이너 플랫폼 프로젝트의 jar 파일 생성을 위해 빌드를 진행한다.
 ```
 $ gradle build
 ```
@@ -84,24 +84,24 @@ $ gradle build
 - 컨테이너 플랫폼 프로젝트 이미지 생성에 필요한 파일을 동일한 디렉토리 내에 위치 시킨다.
 - 파일 위치 : <br>
   + 컨테이너 플랫폼 포털
-      - [paas-ta-container-platform-api](portal/paas-ta-container-platform-api)
-      - [paas-ta-container-platform-common-api](portal/paas-ta-container-platform-common-api)
-      - [paas-ta-container-platform-webadmin](portal/paas-ta-container-platform-webadmin)
-      - [paas-ta-container-platform-webuser](portal/paas-ta-container-platform-webuser)
+      - [cp-portal-api](portal/cp-portal-api)
+      - [cp-portal-common-api](portal/cp-portal-common-api)
+      - [cp-portal-webadmin](portal/cp-portal-webadmin)
+      - [cp-portal-webuser](portal/cp-portal-webuser)
   + 컨테이너 플랫폼 서비스 브로커
-      - [paas-ta-container-platform-admin-service-broker](service-broker/paas-ta-container-platform-admin-service-broker)
-      - [paas-ta-container-platform-user-service-broker](service-broker/paas-ta-container-platform-user-service-broker)  
-      - [paas-ta-container-platform-jenkins-service-broker](service-broker/paas-ta-container-platform-jenkins-service-broker)  
+      - [cp-portal-admin-service-broker](service-broker/cp-portal-admin-service-broker)
+      - [cp-portal-user-service-broker](service-broker/cp-portal-user-service-broker)  
+      - [cp-portal-jenkins-service-broker](service-broker/cp-portal-jenkins-service-broker)  
 
 <br>
 
-> 'paas-ta-container-platform-api'를 예시로 진행한다.
+> 'cp-portal-api'를 예시로 진행한다.
 
 - 파일 디렉토리 구성
 ```
 ├── Dockerfile
 ├── application.yml
-└── paas-ta-container-platform-api.jar
+└── cp-portal-api.jar
 ```
 - Dockerfile 확인
 ```
@@ -139,5 +139,5 @@ $ sudo podman login http://{K8s_MASTER_NODE_IP}:30002 --username admin --passwor
 
 - 로그인한 Private Repository에 컨테이너 플랫폼 이미지를 Push한다.
 ```
-$ sudo docker push {K8s_MASTER_NODE_IP}:30002/cp-portal-repository/container-platform-api:latest
+$ sudo docker push {K8s_MASTER_NODE_IP}:30002/cp-portal-repository/cp-portal-api:latest
 ```
