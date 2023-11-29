@@ -54,9 +54,15 @@
     <td></td>
   </tr>
   <tr align=center>
-    <td rowspan=1 colspan=2><a href="https://github.com/K-PaaS/cp-deployment">CP 서비스</a></td>
-    <td><a href="https://github.com/K-PaaS/container-platform-pipeline-release">Pipeline</a></td>
-    <td><a href="https://github.com/K-PaaS/container-platform-source-control-release">Source Control</a></td>
+    <td rowspan=2 colspan=2><a href="https://github.com/K-PaaS/cp-deployment">CP 서비스</a></td>
+    <td><a href="https://github.com/K-PaaS/cp-portal-ui">Portal UI</a></td>
+    <td><a href="https://github.com/K-PaaS/cp-portal-api">Portal API</a></td>
+    <td><a href="https://github.com/K-PaaS/cp-portal-common-api">Common API</a></td>
+    <td><a href="https://github.com/K-PaaS/cp-portal-common-api">Service Broker</a></td>
+  </tr>
+  <tr align=center>
+    <td><a href="https://github.com/K-PaaS/cp-metrics-api">Metric API</a></td>
+    <td><a href="https://github.com/K-PaaS/cp-terraman">Terraman API</a></td>
     <td></td>
     <td></td>
   </tr>
