@@ -93,12 +93,10 @@ $ cat Dockerfile
 ```
 ```
 FROM openjdk:8-jdk-alpine
-ARG JAR_FILE=build/libs/*.jar
-RUN addgroup -S 1000 && adduser -S 1000 -G 1000
-RUN mkdir -p /home/1000
-COPY ${JAR_FILE} /home/1000/container-platform-api.jar
-RUN chown -R 1000:1000 /home/1000
-ENTRYPOINT ["java","-jar","-Dspring.profiles.active=prod","/home/1000/container-platform-api.jar"]
+ARG JAR_FILE=*.jar
+COPY ${JAR_FILE} container-platform-api.jar
+COPY application.yml /application.yml
+ENTRYPOINT ["java","-jar","-Dspring.config.location=application.yml","-Dspring.profiles.active=prod","/container-platform-api.jar"]
 ```
 - 이미지 생성<br><br>
   **REPOSITORY URL** : `https://harbor.{HOST_DOMAIN}.nip.io`
