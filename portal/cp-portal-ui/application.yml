@@ -1,14 +1,18 @@
 spring:
   application:
-    name: paas-ta-container-platform-admin
+    name: cp-portal-ui
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
 
 management:
   security:
     enabled: false
 
 private:
-  registry:
-    imageName: paas-ta-container-platform-harbor
+  repository:
+    url: ${REPOSITORY_URL}
+
 
 keycloak:
   oauth:
@@ -27,11 +31,13 @@ keycloak:
       id: ${KEYCLOAK_CP_CLIENT_ID}
       secret: ${KEYCLOAK_CP_CLIENT_SECRET}
       scope:
-      clusterAdminRole: paas-ta-container-platform-cluster-admin-role
+      superAdminRole: cp-cluster-admin-role
 
 ---
 spring:
-  profiles: local
+  config:
+    activate:
+      on-profile: local
   freemarker:
     template-loader-path: classpath:/templates/
 
@@ -43,23 +49,19 @@ logging:
 
 server:
   port: ${PORT:8090}
+  servlet:
+    session:
+      cookie:
+        name: CPADMINPORTALSESSION
 
 cpApi:
   url: http://localhost:3333
-  authorization:
-    id: admin
-    password: PaaS-TA
-
-commonApi:
-  url: http://localhost:3334
-  authorization:
-    id: admin
-    password: PaaS-TA
 
 ---
 spring:
-  profiles:
-    active: prod
+  config:
+    activate:
+      on-profile: prod
   freemarker:
     template-loader-path: classpath:/templates/
 
@@ -70,16 +72,11 @@ logging:
   file: logs/application.log
 
 server:
-  port: ${SERVER_PORT}
+  port: ${PORT:8090}
+  servlet:
+    session:
+      cookie:
+        name: CPADMINPORTALSESSION
 
 cpApi:
-  url: ${CONTAINER_PLATFORM_API_URI}
-  authorization:
-    id: admin
-    password: PaaS-TA
-
-commonApi:
-  url: ${CONTAINER_PLATFORM_COMMON_API_URI}
-  authorization:
-    id: admin
-    password: PaaS-TA
+  url: ${CP_PORTAL_API_URI}

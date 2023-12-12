@@ -1,20 +1,73 @@
 spring:
   application:
-    name: paas-ta-container-platform-common-api
+    name: cp-portal-common-api
   security:
     username: admin
-    password: PaaS-TA
+    password: cpcommon!123
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 cp:
-  defaultNamespace: paas-ta-container-platform-temp-namespace
+  defaultNamespace: cp-portal-temp-namespace
   clusterName: cp-cluster
 
 keycloak:
   cpRealm: ${KEYCLOAK_CP_REALM}
-  clusterAdminRole: paas-ta-container-platform-cluster-admin-role
+  clusterAdminRole: cp-cluster-admin-role
 ---
 spring:
-  profiles: local
+  config:
+    activate:
+      on-profile: local
+  cp:
+    datasource:
+      jdbc-url: jdbc:mysql://${DATABASE_URL}/${CP_PORTAL_DB_SCHEMA}?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
+      driver-class-name: org.mariadb.jdbc.Driver
+      validationQuery: SELECT 1
+      username: ${DATABASE_USER_ID}
+      password: ${DATABASE_USER_PASSWORD}
+  keycloak:
+    datasource:
+      jdbc-url: jdbc:mysql://${DATABASE_URL}/${KEYCLOAK_DB_SCHEMA}?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
+      driver-class-name: org.mariadb.jdbc.Driver
+      validationQuery: SELECT 1
+      username: ${DATABASE_USER_ID}
+      password: ${DATABASE_USER_PASSWORD}
+  broker:
+    datasource:
+      jdbc-url: jdbc:mysql://${DATABASE_URL}/broker?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
+      driver-class-name: org.mariadb.jdbc.Driver
+      validationQuery: SELECT 1
+      username: ${DATABASE_USER_ID}
+      password: ${DATABASE_USER_PASSWORD}
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: none
+      show_sql: true
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    generate-ddl: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+logging:
+  level:
+    ROOT: INFO
+  path: classpath:logback-spring.xml
+  file: logs/application.log
+
+server:
+  port: ${PORT:3334}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
   cp:
     datasource:
       jdbc-url: jdbc:mysql://${DATABASE_URL}/cp?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
@@ -57,62 +110,3 @@ logging:
 
 server:
   port: ${PORT:3334}
-
-cpApi:
-  url: http://localhost:3333
-  authorization:
-    id: admin
-    password: PaaS-TA
-
----
-spring:
-  profiles:
-    active: prod
-  cp:
-    datasource:
-      jdbc-url: jdbc:mysql://${DATABASE_URL}/cp?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
-      driver-class-name: org.mariadb.jdbc.Driver
-      validationQuery: SELECT 1
-      username: ${DATABASE_USER_ID}
-      password: ${DATABASE_USER_PASSWORD}
-  keycloak:
-    datasource:
-      jdbc-url: jdbc:mysql://${DATABASE_URL}/${KEYCLOAK_DB_SCHEMA}?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
-      driver-class-name: org.mariadb.jdbc.Driver
-      validationQuery: SELECT 1
-      username: ${DATABASE_USER_ID}
-      password: ${DATABASE_USER_PASSWORD}
-  broker:
-    datasource:
-      jdbc-url: jdbc:mysql://${DATABASE_URL}/broker?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
-      driver-class-name: org.mariadb.jdbc.Driver
-      validationQuery: SELECT 1
-      username: ${DATABASE_USER_ID}
-      password: ${DATABASE_USER_PASSWORD}
-  jpa:
-    database: mysql
-    hibernate:
-      ddl-auto: none
-      show_sql: true
-      naming:
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    generate-ddl: false
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-
-logging:
-  level:
-    ROOT: INFO
-  path: classpath:logback-spring.xml
-  file: logs/application.log
-
-server:
-  port: ${SERVER_PORT}
-
-cpApi:
-  url: ${CONTAINER_PLATFORM_API_URI}
-  authorization:
-    id: admin
-    password: PaaS-TA

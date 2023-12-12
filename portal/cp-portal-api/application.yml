@@ -1,58 +1,88 @@
 spring:
   application:
-    name: paas-ta-container-platform-api
+    name: cp-portal-api
   freemarker:
     template-loader-path: classpath:/templates/
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cloud:
+    vault:
+      scheme: http
+      uri: ${VAULT_URL}
+      authentication: APPROLE
+      kv:
+        enabled: true
+        backend: secret
+      app-role:
+        role-id: ${VAULT_ROLE_ID}
+        secret-id: ${VAULT_SECRET_ID}
+        role: ${VAULT_ROLE_NAME}
+        app-role-path: approle
+      config:
+        lifecycle:
+          enabled: true
+          min-renewal: 10s
+          expiry-threshold: 1m
+
+aspect:
+  enabled: false # for checking Elapsed time
 
 jwt:
-  secret: ${JWT_SECRET_KEY}
+  secret: {JWT_TOKEN}
   expirationDateInMs: 10800000
   refreshExpirationDateInMs: 10800000
 
 project:
-  name: paas-ta-container-platform-api
-  artifactId: paas-ta-container-platform-api
-  description: API of the Container Platform Projects
+  name: cp-portal-api
+  artifactId: cp-portal-api
+  description: API of the K-PaaS Container Platform Portal
 
 management:
   security:
     enabled: false
 
-cpCluster:
-  name: cp-cluster
+vault:
+  path:
+    super-admin-token: "secret/cluster/{clusterId}"
+    user-token: "secret/user/{userAuthId}/{clusterId}/{namespace}"
+    provider-credential: "secret/{iaas}/{id}"
+    cluster-token: "secret/cluster/{id}"
 
 cp:
-  provide-as-service: paas-ta-container-platform-portal-service
-  provide-as-standalone: paas-ta-container-platform-portal-standalone
+  provide-as-service: cp-portal-service
+  provide-as-standalone: cp-portal-standalone
 
 cpNamespace:
-  ignoreNamespace: ${IGNORE_NAMESPACES}
-  defaultNamespace: paas-ta-container-platform-temp-namespace
+  defaultNamespace: cp-portal-temp-namespace
+  exceptNamespace: ${cpNamespace.defaultNamespace}, all
+  clusterAdminNamespace: kube-system
   role:
-    list: paas-ta-container-platform-init-role, paas-ta-container-platform-admin-role
-    init: paas-ta-container-platform-init-role
-    admin: paas-ta-container-platform-admin-role
+    list: cp-init-role, cp-admin-role
+    init: cp-init-role
+    admin: cp-admin-role
   resourceQuotas:
-    list: paas-ta-container-platform-low-rq, paas-ta-container-platform-medium-rq, paas-ta-container-platform-high-rq
-    low: paas-ta-container-platform-low-rq
-    medium: paas-ta-container-platform-medium-rq
-    high: paas-ta-container-platform-high-rq
+    list: cp-low-resourcequota, cp-medium-resourcequota, cp-high-resourcequota
+    low: cp-low-resourcequota
+    medium: cp-medium-resourcequota
+    high: cp-high-resourcequota
   limitRanges:
-    list: paas-ta-container-platform-low-limit-range, paas-ta-container-platform-medium-limit-range, paas-ta-container-platform-high-limit-range
-    low: paas-ta-container-platform-low-limit-range
-    medium: paas-ta-container-platform-medium-limit-range
-    high: paas-ta-container-platform-high-limit-range
+    list: cp-low-limitrange, cp-medium-limitrange, cp-high-limitrange
+    low: cp-low-limitrange
+    medium: cp-medium-limitrange
+    high: cp-high-limitrange
 
 cpAnnotations:
   configuration: kubectl.kubernetes.io/, kubernetes.io/, k8s.io/
+  last-applied: last-applied
 
 cpResource:
-  clusterResource: Namespace, PersistentVolume, StorageClass, Role, ResourceQuota, LimitRange
+  clusterResource: Namespace, PersistentVolume, StorageClass, Role, ResourceQuota, LimitRange, ConfigMap
 
 cpMaster:
   name:
   api:
-    url: ${K8S_API_SERVER}
+    access: "/api"
     list:
       services:
         list: "/api/v1/namespaces/{namespace}/services"
@@ -136,8 +166,8 @@ cpMaster:
         list: "/api/v1/namespaces"
         get: "/api/v1/namespaces/{namespace}"
         create: "/api/v1/namespaces"
-        delete: "/api/v1/namespaces/{name}"
-        update: "/api/v1/namespaces/{name}"
+        delete: "/api/v1/namespaces/{namespace}"
+        update: "/api/v1/namespaces/{namespace}"
       resourceQuotas:
         list: "/api/v1/namespaces/{namespace}/resourcequotas"
         get: "/api/v1/namespaces/{namespace}/resourcequotas/{name}"
@@ -148,6 +178,8 @@ cpMaster:
       secrets:
         get: "/api/v1/namespaces/{namespace}/secrets/{name}"
         create: "/api/v1/namespaces/{namespace}/secrets"
+      tokens:
+        create: "/api/v1/namespaces/{namespace}/serviceaccounts/{name}/token"
       clusterRoleBindings:
         create: "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings"
         delete: "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}"
@@ -158,10 +190,48 @@ cpMaster:
         delete: "/api/v1/namespaces/{namespace}/limitranges/{name}"
         update: "/api/v1/namespaces/{namespace}/limitranges/{name}"
         listAllNamespaces: "/api/v1/limitranges"
+      configMaps:
+        list: "/api/v1/namespaces/{namespace}/configmaps"
+        get: "/api/v1/namespaces/{namespace}/configmaps/{name}"
+        create: "/api/v1/namespaces/{namespace}/configmaps"
+        delete: "/api/v1/namespaces/{namespace}/configmaps/{name}"
+        update: "/api/v1/namespaces/{namespace}/configmaps/{name}"
+        listAllNamespaces: "/api/v1/configmaps"
+      ingresses:
+        list: "/apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses"
+        get: "/apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}"
+        create: "/apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses"
+        delete: "/apis/networking.k8s.io/v1/namespaces/{namespace}//ingresses/{name}"
+        update: "/apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}"
+        listAllNamespaces: "/apis/networking.k8s.io/v1/ingresses"
+    metrics:
+      node:
+        list: "/apis/metrics.k8s.io/v1beta1/nodes"
+        get: "/apis/metrics.k8s.io/v1beta1/nodes/{name}"
+      pod:
+        list: "/apis/metrics.k8s.io/v1beta1/namespaces/{namespace}/pods"
+        get: "/apis/metrics.k8s.io/v1beta1/namespaces/{namespace}/pods/{name}"
+
+cpTerraman:
+  api:
+    url: ${CP_PORTAL_TERRAMAN_API_URI}
+
+cpMetricCollector:
+  api:
+    authorization:
+      id: paasta
+      password: password
+    url: ${CP_PORTAL_METRIC_COLLECTOR_API_URI}
+    clusters:
+      get: "/getDashboardData"
+      key: "cluster_id"
+
 
 ---
 spring:
-  profiles: local
+  config:
+    activate:
+      on-profile: local
 
 logging:
   level:
@@ -178,12 +248,18 @@ commonApi:
   url: http://localhost:3334
   authorization:
     id: admin
-    password: PaaS-TA
+    password: cpcommon!123
+
+
+cpTerraman:
+  template:
+    path: "C:/Temp/{id}/{id}.tf"
 
 ---
 spring:
-  profiles:
-    active: prod
+  config:
+    activate:
+      on-profile: prod
 
 logging:
   level:
@@ -192,12 +268,16 @@ logging:
   file: logs/application.log
 
 server:
-  port: ${SERVER_PORT}
+  port: ${PORT:3333}
   auth:
     valid: N
 
 commonApi:
-  url: ${CONTAINER_PLATFORM_COMMON_API_URI}
+  url: ${CP_PORTAL_COMMON_API_URI}
   authorization:
     id: admin
-    password: PaaS-TA
+    password: cpcommon!123
+
+cpTerraman:
+  template:
+    path: "/tmp/terraform/{id}/{id}.tf"
