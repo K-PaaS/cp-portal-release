@@ -75,7 +75,6 @@ $ gradle build
   - [container-platform-portal-api](https://github.com/K-PaaS/cp-portal-api)
   - [container-platform-portal-common-api](https://github.com/K-PaaS/cp-portal-common-api)
   - [container-platform-portal-ui](https://github.com/K-PaaS/cp-portal-ui)
-  - [container-platform-portal-service-broker](https://github.com/K-PaaS/cp-portal-service-broker)
   - [container-platform-metrics-api](https://github.com/K-PaaS/cp-metrics-api)
   - [container-platform-terraman](https://github.com/K-PaaS/cp-terraman)
   - [container-platform-catalog-api](https://github.com/K-PaaS/cp-catalog-api)
